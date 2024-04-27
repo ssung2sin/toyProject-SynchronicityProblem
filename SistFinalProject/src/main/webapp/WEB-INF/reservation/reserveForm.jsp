@@ -457,8 +457,13 @@
 								        url: "/reserve/insert",
 								        data: additionalData,
 								        success: function (response) {
+											alert(response);
 								            // 서버에서 Success 응답을 받으면 추가적인 로직을 수행할 수 있습니다.
-								            window.location.href = "/payment/pay-success";
+											if(response === "Success") {
+												window.location.href = "/payment/pay-success";
+											}else{
+												alert("보유한 포인트가 부족합니다");
+											}
 								        },
 								        error: function (error) {
 								            // 에러 시 처리

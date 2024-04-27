@@ -1,5 +1,7 @@
 package sist.last.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +100,16 @@ public class ReserveController {
 	                      @ModelAttribute ReserveDto reserveDto,
 	                      HttpSession session) {
 		String info_id=(String)session.getAttribute("info_id");
+		List<ReserveDto> reserveList = rservice.getReservationDataById(info_id);
+		int roomCount =0;
+		for(int reserveCount = 0 ; reserveCount<reserveList.size();reserveCount++){
+			if(room_num == reserveList.get(reserveCount).getRoom_num()){
+				roomCount++;
+			}
+		}
+		if(roomCount>=roominter.getOneData(room_num).getRoom_count()){
+			return "fail";
+		}
 		
 	    reserveDto.setReserve_id(reservationNumber); // reservationNumber 설정
 	    reserveDto.setReserve_amount(amount);
