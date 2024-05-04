@@ -28,7 +28,7 @@ spring:
     
 #mybatis setting
 mybatis:
-  type-aliases-package: sist.last.*
+  type-aliases-package: com.example.demo.sist.last.*
   mapper-locations:
   - /mapper/**/*.xml
   

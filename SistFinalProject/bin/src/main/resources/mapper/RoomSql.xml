@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sist.last.mapper.RoomMapperInter">
+<mapper namespace="com.example.demo.sist.last.mapper.RoomMapperInter">
 	
 	<insert id="insertRoom" parameterType="RoomDto">
         insert into room(room_name,room_price,room_minpeople,room_maxpeople,room_location,room_photo,room_info,room_count,accom_num)

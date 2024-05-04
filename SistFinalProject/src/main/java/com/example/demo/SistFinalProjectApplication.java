@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("sist.last.*")
+@ComponentScan("com.example.demo.sist.last.*")
 @ComponentScan("com.example.demo")
-@MapperScan("sist.last.mapper")
+@MapperScan("com.example.demo.sist.last.mapper")
 public class SistFinalProjectApplication {
 
 	public static void main(String[] args) {

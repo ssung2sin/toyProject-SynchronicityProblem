@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sist.last.mapper.ChatRoomMapperInter">
+<mapper namespace="com.example.demo.sist.last.mapper.ChatRoomMapperInter">
     <select id="getMaxNum">
         select max(room_num) from chatroom
     </select>

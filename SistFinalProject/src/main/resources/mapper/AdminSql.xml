@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sist.last.mapper.AdminMapperInter">
+<mapper namespace="com.example.demo.sist.last.mapper.AdminMapperInter">
   	<select id="adminloginPassCheck" parameterType="Map" resultType="int"> <!-- mybatis룰에 따라서 parameterType에 1가지만 쓰기때문 -->
 		select count(*) from admin where admin_id=#{admin_id} and admin_pass=#{admin_pass} 
 	</select>
