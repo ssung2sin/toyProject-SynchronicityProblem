@@ -25,6 +25,8 @@ import com.example.demo.sist.last.mapper.AccomMapperInter;
 import com.example.demo.sist.last.mapper.RoomMapperInter;
 import com.example.demo.sist.last.service.MemberService;
 
+import lombok.Synchronized;
+
 @Controller
 public class ReserveController {
 
@@ -104,7 +106,7 @@ public class ReserveController {
 		HttpSession session) {
 		String info_id=(String)session.getAttribute("info_id");
 		List<ReserveDto> reserveList = rservice.getReserveCountOfRoomNumber(room_num);
-		System.out.println("list의 갯수 = "+reserveList.size());
+		//System.out.println("list의 갯수 = "+reserveList.size());
 		int roomCount =0;
 		for(int reserveCount = 0 ; reserveCount<reserveList.size();reserveCount++){
 			if(checkForDuplicate(room_checkin,room_checkout,reserveList.get(reserveCount).getReserve_checkin(),
@@ -113,7 +115,7 @@ public class ReserveController {
 			}
 
 		}
-		System.out.println(roomCount+","+roominter.getOneData(room_num).getRoom_count());
+		//System.out.println(roomCount+","+roominter.getOneData(room_num).getRoom_count());
 		if(roomCount>=roominter.getOneData(room_num).getRoom_count()){
 			return "fail";
 		}
@@ -144,7 +146,7 @@ public class ReserveController {
 		LocalDateTime existingCheckout = LocalDateTime.parse(RoomCheckout, formatter);
 		if ((checkinDate.isBefore(existingCheckout) || checkinDate.isEqual(existingCheckout)) &&
 			(checkoutDate.isAfter(existingCheckin) || checkoutDate.isEqual(existingCheckin))) {
-			System.out.println("중복발생");
+			//System.out.println("중복발생");
 			return true; // 중복이 발생했음
 		}
 		return false;
