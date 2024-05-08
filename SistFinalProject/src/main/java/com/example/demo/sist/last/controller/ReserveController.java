@@ -1,5 +1,8 @@
 package com.example.demo.sist.last.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -47,7 +50,7 @@ public class ReserveController {
 			@RequestParam String room_name,
 			@ModelAttribute MemberDto memberDto,
 			@ModelAttribute ReserveDto reserveDto,
-			HttpSession session)
+		HttpSession session)
 	{
 		String info_id=(String)session.getAttribute("info_id");
 		
@@ -98,15 +101,19 @@ public class ReserveController {
 						  @RequestParam("accom_name") String accom_name,
 						  @RequestParam("room_name") String room_name,
 	                      @ModelAttribute ReserveDto reserveDto,
-	                      HttpSession session) {
+		HttpSession session) {
 		String info_id=(String)session.getAttribute("info_id");
-		List<ReserveDto> reserveList = rservice.getReservationDataById(info_id);
+		List<ReserveDto> reserveList = rservice.getReserveCountOfRoomNumber(room_num);
+		System.out.println("list의 갯수 = "+reserveList.size());
 		int roomCount =0;
 		for(int reserveCount = 0 ; reserveCount<reserveList.size();reserveCount++){
-			if(room_num == reserveList.get(reserveCount).getRoom_num()){
+			if(checkForDuplicate(room_checkin,room_checkout,reserveList.get(reserveCount).getReserve_checkin(),
+				reserveList.get(reserveCount).getReserve_checkout())) {
 				roomCount++;
 			}
+
 		}
+		System.out.println(roomCount+","+roominter.getOneData(room_num).getRoom_count());
 		if(roomCount>=roominter.getOneData(room_num).getRoom_count()){
 			return "fail";
 		}
@@ -127,5 +134,19 @@ public class ReserveController {
 	    rservice.reservingInsert(reserveDto);
 	    
 	    return "Success"; // 또는 원하는 응답을 반환할 수 있습니다.
+	}
+
+	private boolean checkForDuplicate(String checkin,String checkout,String RoomCheckin,String RoomCheckout){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm");
+		LocalDateTime checkinDate = LocalDateTime.parse(checkin, formatter);
+		LocalDateTime checkoutDate = LocalDateTime.parse(checkout, formatter);
+		LocalDateTime existingCheckin = LocalDateTime.parse(RoomCheckin, formatter);
+		LocalDateTime existingCheckout = LocalDateTime.parse(RoomCheckout, formatter);
+		if ((checkinDate.isBefore(existingCheckout) || checkinDate.isEqual(existingCheckout)) &&
+			(checkoutDate.isAfter(existingCheckin) || checkoutDate.isEqual(existingCheckin))) {
+			System.out.println("중복발생");
+			return true; // 중복이 발생했음
+		}
+		return false;
 	}
 }
